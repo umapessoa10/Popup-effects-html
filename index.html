@@ -1,0 +1,104 @@
+<html>
+<head>
+    <title>Smoooth</title>
+    <style>
+        body {
+            font-family: verdana;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .hover-effect {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hover-effect::before,
+        .hover-effect::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: blue; /* lighter shade of blue */
+            transition: width 0.3s ease-in-out;
+        }
+
+        .hover-effect::before {
+            left: 0;
+        }
+
+        .hover-effect::after {
+            right: 0;
+        }
+
+        .hover-effect:hover::before,
+        .hover-effect:hover::after {
+            width: 100%; /* grow to 100% width */
+        }
+
+        .popup {
+            background-color: lightgreen;
+            border-radius: 10px;
+            border: solid 2px green;
+            width: 400px;
+            height: 500px;
+            position: fixed;
+            right: 15px;
+            bottom: 15px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .close-popup {
+            color: red;
+            background: transparent;
+            border: transparent;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .close-popup:hover {
+            transform: scale(1.1);
+        }
+
+        .popup.closed {
+            transform: translateY(100%);
+        }
+        .popup.opened {
+            transform: translateY(0%);
+        }
+    </style>
+    <script>
+        function closePopup() {
+            let popup = document.getElementById("popup");
+            popup.classList.remove("opened");
+            popup.classList.add("closed");
+            setTimeout(function() {
+                popup.style.display = "none";
+            }, 500);
+        }
+
+        function openPopup() {
+            let popup = document.getElementById("popup");
+            popup.style.display = "block";
+            setTimeout(function() {
+                popup.classList.remove("closed");
+                popup.classList.add("opened");
+            }, 10);
+        }
+
+        // Open the popup by default
+        window.addEventListener('DOMContentLoaded', openPopup);
+    </script>
+</head>
+<body>
+    <p class="hover-effect" onclick="openPopup()">Effect</p>
+    <div class="popup opened" id="popup">
+        <button class="close-popup" onclick="closePopup()">X</button>
+        <h1>Popup</h1>
+    </div>
+</body>
+</html>
